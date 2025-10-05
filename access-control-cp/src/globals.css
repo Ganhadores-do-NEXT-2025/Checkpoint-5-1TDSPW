@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+/*
+  Definimos variáveis CSS para centralizar o tema da aplicação,
+  facilitando a manutenção e garantindo consistência visual.
+*/
+:root {
+  /* Cores */
+  --cor-primaria: #2563eb; /* blue-600 */
+  --cor-primaria-hover: #1d4ed8; /* blue-700 */
+  --cor-sucesso: #16a34a; /* green-600 */
+  --cor-erro: #dc2626; /* red-600 */
+  --cor-fundo: #f9fafb; /* gray-50 */
+  --cor-fundo-card: #ffffff;
+  --cor-texto-principal: #1f2937; /* gray-800 */
+  --cor-texto-secundario: #6b7280; /* gray-500 */
+  --cor-borda: #e5e7eb; /* gray-200 */
+
+  /* Sombras */
+  --sombra-card: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
+  --sombra-botao: 0 4px 6px -1px rgba(37, 99, 235, 0.2), 0 2px 4px -2px rgba(37, 99, 235, 0.2);
+}
+
+/*
+  Estilos base para elementos HTML comuns.
+*/
+@layer base {
+  body {
+    @apply bg-[var(--cor-fundo)] font-sans text-[var(--cor-texto-principal)] antialiased;
+  }
+
+  main {
+    @apply flex items-center justify-center min-h-screen p-4;
+  }
+}
+
+/*
+  Classes de componentes reutilizáveis para formulários, botões, etc.
+*/
+@layer components {
+  .form-container {
+    @apply w-full max-w-md space-y-6 rounded-2xl bg-[var(--cor-fundo-card)] p-8 shadow-[var(--sombra-card)] border border-[var(--cor-borda)];
+  }
+
+  .form-title {
+    @apply text-2xl font-bold text-center text-[var(--cor-texto-principal)];
+  }
+
+  .form-field {
+    @apply space-y-2;
+  }
+
+  .form-label {
+    @apply text-sm font-medium text-[var(--cor-texto-secundario)];
+  }
+
+  .form-input {
+    @apply w-full px-4 py-2.5 border border-[var(--cor-borda)] rounded-lg focus:ring-2 focus:ring-[var(--cor-primaria)] focus:border-transparent transition-all duration-200;
+  }
+
+  .form-link {
+    @apply text-sm text-center text-[var(--cor-texto-secundario)];
+  }
+
+  .form-link a {
+    @apply font-semibold text-[var(--cor-primaria)] hover:text-[var(--cor-primaria-hover)] transition-colors;
+  }
+
+  .submit-button {
+    @apply w-full bg-[var(--cor-primaria)] hover:bg-[var(--cor-primaria-hover)] text-white font-bold py-2.5 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--cor-primaria)] transition-colors duration-200 shadow-[var(--sombra-botao)] disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .logout-button {
+    @apply mt-4 w-full bg-[var(--cor-erro)] hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--cor-erro)] transition-colors duration-200 shadow-md;
+  }
+
+  .feedback-message {
+    @apply p-3 rounded-md text-sm font-medium;
+  }
+
+  .feedback-success {
+    @apply bg-green-100 text-green-800;
+  }
+
+  .feedback-error {
+    @apply bg-red-100 text-red-700;
+  }
+
+  .feedback-info {
+    @apply bg-blue-100 text-blue-700;
+  }
+
+  .neutral-button {
+    @apply submit-button bg-gray-500 hover:bg-gray-600 focus:ring-gray-500;
+  }
+}

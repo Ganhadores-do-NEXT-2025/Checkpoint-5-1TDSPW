@@ -66,61 +66,60 @@ export default function Login() {
 
     return (
         <main>
-            <div>
+            <div className="form-container">
+                <h1 className="form-title">Login</h1>
                 <form 
                     onSubmit={handleSubmit(onSubmit)} 
+                    className="space-y-6"
                 >
-                    <h1>Login</h1>
-
                     {successMessage && (
-                        <div>{successMessage}</div>
+                        <div className="feedback-message feedback-success">{successMessage}</div>
                     )}
                     {errorMessage && (
-                        <div>{errorMessage}</div>
+                        <div className="feedback-message feedback-error">{errorMessage}</div>
                     )}
 
-                    <div>
-                        <label htmlFor="nomeUsuario">
+                    <div className="form-field">
+                        <label htmlFor="nomeUsuario" className="form-label">
                             Nome de Usuário
                         </label>
                         <input
                             id="nomeUsuario"
                             type="text"
+                            className="form-input"
                             {...register('nomeUsuario')} 
                             placeholder="Seu nome de usuário"
                             />
                         {errors.nomeUsuario && (
-                            <p className="text-red-600"> {errors.nomeUsuario.message}</p>
+                            <p className="text-sm text-[var(--cor-erro)] mt-1">{errors.nomeUsuario.message}</p>
                         )}
                     </div>
 
-                    <div>
-                        <label htmlFor="email">
+                    <div className="form-field">
+                        <label htmlFor="email" className="form-label">
                             E-mail
                         </label>
                         <input
                             id="email"
                             type="email"
+                            className="form-input"
                             {...register('email')} 
                             placeholder="seu@email.com"
                             />
-                        {errors.email && (<p className="text-red-600"> {errors.email.message}</p>
-                        )}
+                        {errors.email && <p className="text-sm text-[var(--cor-erro)] mt-1">{errors.email.message}</p>}
                     </div>
 
                     <button 
                         type="submit" 
                         disabled={isSubmitting} 
-                        className={isSubmitting ? 'submit-button submitting' : 'submit-button'}
+                        className="submit-button"
                             >
                         {isSubmitting ? 'Verificando Credenciais...' : 'Acessar'}
                     </button>
 
-                    <p>
-                        Não tem uma conta?{' '}
-                        <Link to="/cadastro">Cadastre-se aqui</Link>
+                    <p className="form-link">
+                        Não tem uma conta? <Link to="/cadastro">Cadastre-se aqui</Link>
                     </p>
-
                 </form>
             </div>
         </main>

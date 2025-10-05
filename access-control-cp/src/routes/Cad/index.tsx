@@ -83,75 +83,76 @@ export default function Cadastro() {
 
     return (
         <main>
-            <div>
+            <div className="form-container">
+                <h1 className="form-title">Crie sua Conta</h1>
                 <form 
                     onSubmit={handleSubmit(onSubmit)} 
+                    className="space-y-6"
                 >
-                    <h1>Crie sua Conta</h1>
-
                     {successMessage && (
-                        <div>{successMessage}</div>
+                        <div className="feedback-message feedback-success">{successMessage}</div>
                     )}
                     {errorMessage && (
-                        <div>{errorMessage}</div>
+                        <div className="feedback-message feedback-error">{errorMessage}</div>
                     )}
 
-                    <div>
-                        <label htmlFor="nome">
+                    <div className="form-field">
+                        <label htmlFor="nome" className="form-label">
                             Nome Completo
                         </label>
                         <input
                             id="nome"
                             type="text"
+                            className="form-input"
                             {...register('nome')} 
                             placeholder="Seu nome completo"
                             />
                         {errors.nome && (
-                            <p style={{ color: 'red' }}> {errors.nome.message}</p>
+                            <p className="text-sm text-[var(--cor-erro)] mt-1">{errors.nome.message}</p>
                         )}
                     </div>
 
 
-                    <div>
-                        <label htmlFor="nomeUsuario">
+                    <div className="form-field">
+                        <label htmlFor="nomeUsuario" className="form-label">
                             Nome de Usuário
                         </label>
                         <input
                             id="nomeUsuario"
                             type="text"
+                            className="form-input"
                             {...register('nomeUsuario')} 
                             placeholder="Escolha seu nome de usuário"
                             />
                         {errors.nomeUsuario && (
-                            <p style={{ color: 'red' }}> {errors.nomeUsuario.message}</p>
+                            <p className="text-sm text-[var(--cor-erro)] mt-1">{errors.nomeUsuario.message}</p>
                         )}
                     </div>
 
-                    <div>
-                        <label htmlFor="email">
+                    <div className="form-field">
+                        <label htmlFor="email" className="form-label">
                             E-mail
                         </label>
                         <input
                             id="email"
                             type="email"
+                            className="form-input"
                             {...register('email')} 
                             placeholder="seu@email.com"
                             />
-                        {errors.email && (<p style={{ color: 'red' }}> {errors.email.message}</p>
-                        )}
+                        {errors.email && <p className="text-sm text-[var(--cor-erro)] mt-1">{errors.email.message}</p>}
                     </div>
 
                     <button 
                         type="submit" 
                         disabled={isSubmitting} 
-                        className={isSubmitting ? 'submit-button submitting' : 'submit-button'}
+                        className="submit-button"
                             >
                         {isSubmitting ? 'Cadastrando...' : 'Cadastrar'}
                     </button>
 
-                    <p>
-                        Já tem uma conta?{' '}
-                        <Link to="/">Fazer Login</Link>
+                    <p className="form-link">
+                        Já tem uma conta? <Link to="/">Fazer Login</Link>
                     </p>
 
                 </form>
