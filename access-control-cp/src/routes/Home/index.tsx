@@ -44,7 +44,7 @@ export default function Home() {
                 <p>Você está logado como:</p>
                 <p><strong>Nome:</strong> {user.nome}</p>
                 <p><strong>Email:</strong> {user.email}</p>
-                <button onClick={handleLogout}>Sair</button>
+                <button onClick={handleLogout}>Fazer logout</button>
             </div>
         </main>
     );
