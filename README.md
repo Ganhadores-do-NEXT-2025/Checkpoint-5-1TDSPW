@@ -309,6 +309,74 @@ Este componente, em conjunto com o `RotaProt` (Componente de Rota Protegida), fo
 
 ---
 
+Ótimo\! Para detalhar a organização das rotas, vamos focar especificamente em como o componente **`ProtectedRoute` (`RotaProt`)** é empregado para proteger as páginas internas da sua aplicação.
+
+-----
+
+# 🚀 Ponto de Entrada e Configuração de Rotas (main.tsx)
+
+Este arquivo é o ponto de inicialização do seu aplicativo React. Ele configura o roteamento principal usando o `react-router-dom`, organizando as páginas em layouts e, mais crucialmente, aplicando **proteção de acesso** a rotas específicas.
+
+## 🧭 Estrutura das Rotas com Rotas Aninhadas
+
+A configuração utiliza o método **`createBrowserRouter`** para definir um array de rotas, que estão organizadas de forma hierárquica (aninhada), permitindo o uso eficiente de *layouts* compartilhados.
+
+### 1\. Rota de Layout Principal
+
+A rota raiz (`path: "/"`) utiliza o componente `<App />` como seu layout principal e define o `<Error />` para o tratamento centralizado de erros de navegação.
+
+```typescript
+{path: "/", element: <App/>, errorElement: <Error/>,
+    children: [ 
+        // ... Rotas Públicas e Protegidas
+    ]
+}
+```
+
+Todas as rotas filhas serão renderizadas dentro do `<Outlet />` presente no componente `<App />`.
+
+### 2\. Rotas Públicas (Acesso Direto)
+
+Essas rotas não exigem autenticação e ficam no primeiro nível de aninhamento.
+
+  * `path: "/"`: Página de **Login** (`<Login />`).
+  * `path: "/cadastro"`: Página de **Cadastro** (`<Cad />`).
+
+-----
+
+## 🔐 Implementação da Rota Protegida (`ProtectedRoute`)
+
+A **`ProtectedRoute`** (importada como `RotaProt`) é utilizada como um **Layout Wrapper** para um subconjunto de rotas filhas, protegendo-as do acesso não autorizado.
+
+### Como a RotaProt é Aplicada:
+
+O bloco de proteção é um objeto de rota sem um `path` definido, mas com um `element` que aponta para o componente de proteção:
+
+```typescript
+{
+    element: <ProtectedRoute/>, // <--- Aqui está o RotaProt
+    children: [
+        {path: "/home", element: <Home />},
+        // [Adicione aqui qualquer outra rota que precise de login]
+    ]
+}
+```
+
+#### O Fluxo de Proteção:
+
+1.  Quando o usuário tenta acessar uma rota filha (ex: `/home`), o `react-router-dom` renderiza primeiro o `element` pai: **`<ProtectedRoute />`**.
+2.  Dentro de `ProtectedRoute`, a função `isAuthenticated()` é executada para checar a presença de um token no `localStorage`.
+3.  **Se a autenticação for bem-sucedida** (`true`):
+      * O `ProtectedRoute` renderiza o componente **`<Outlet />`**.
+      * O `<Outlet />` exibe o componente filho correspondente (por exemplo, `<Home />`).
+4.  **Se a autenticação falhar** (`false`):
+      * O `ProtectedRoute` retorna um **`<Navigate to="/" replace />`**.
+      * O usuário é **imediatamente redirecionado** para a página de Login (`/`), impedindo o acesso à rota protegida.
+
+Essa estrutura garante que a lógica de autenticação seja aplicada de forma declarativa e centralizada, mantendo o código das rotas internas (`/home`) limpo e focado apenas na apresentação de dados.
+
+---
+
 ## 👥 Integrantes do Grupo
 
 - **Gustavo Tavares da Silva:** RM `562827`
