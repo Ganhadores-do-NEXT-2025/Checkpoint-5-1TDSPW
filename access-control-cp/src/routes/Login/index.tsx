@@ -6,13 +6,12 @@ import axios from 'axios';
 const loginSchema = z.object({
     nomeUsuario: z
     .string()
-    .min(1, 'O nome de usuário é obrigatório.'),
+    .min(1, 'Por favor, insira seu nome de usuário.'), 
 
     email: z
     .string()
-    .min(1, 'O e-mail é obrigatório.')
-    .email('Formato de e-mail inválido.'),
-
+    .min(1, 'O e-mail não pode ficar vazio.')
+    .email('O formato do e-mail é inválido. Ex: seuemail@dominio.com'), 
 });
 
 export default function Login() {
@@ -20,16 +19,16 @@ export default function Login() {
     const {
         register, 
         handleSubmit, 
+        setError,
         formState: { errors, isSubmitting }, 
     } = useForm({
         resolver: zodResolver(loginSchema), 
     }); 
 
     const onSubmit = async (data) => {
-        console.log('Dados submetidos:', data);
+        console.log('Dados submetidos (já validados):', data);
 
         try {
-
             const API_URL = `http://localhost:3001/usuarios`;
 
             await new Promise(resolve => setTimeout(resolve, 1500)); 
@@ -37,22 +36,35 @@ export default function Login() {
             const response = await axios.get(API_URL);
 
             if (response.data.length > 0) { 
-            alert('Login realizado com sucesso!');
+                alert('Login realizado com sucesso! Redirecionando...');
 
             } else {
-                alert('Credenciais inválidas. Tente novamente.');
+
+                setError("root.serverError", { 
+                    type: "manual",
+                    message: "Credenciais inválidas. Verifique seu nome de usuário ou e-mail.",
+                });
             }
 
         } catch (error) {
             console.error('Erro no login:', error);
-            alert('Ocorreu um erro ao tentar fazer login.');
+            setError("root.serverError", {
+                type: "manual",
+                message: "Não foi possível conectar ao servidor. Tente novamente mais tarde.",
+            });
         }
     };
 
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <h1>Entrar na Conta</h1>
+                <h1>Login</h1>
+
+                {errors.root?.serverError && (
+                    <p style={{ color: 'white', backgroundColor: 'red', padding: '10px', borderRadius: '4px', marginBottom: '15px' }}>
+                        {errors.root.serverError.message}
+                    </p>
+                )}
 
                 <div>
                     <label htmlFor="nomeUsuario">Nome de Usuário</label>
@@ -62,7 +74,9 @@ export default function Login() {
                         {...register('nomeUsuario')} 
                     />
                     {errors.nomeUsuario && (
-                        <p>{errors.nomeUsuario.message}</p>
+                        <p style={{ color: 'red', margin: '5px 0' }}>
+                            {errors.nomeUsuario.message}
+                        </p>
                     )}
                 </div>
 
@@ -74,7 +88,9 @@ export default function Login() {
                         {...register('email')} 
                     />
                     {errors.email && (
-                        <p>{errors.email.message}</p>
+                        <p style={{ color: 'red', margin: '5px 0' }}>
+                            {errors.email.message}
+                        </p>
                     )}
                 </div>
 
@@ -82,7 +98,7 @@ export default function Login() {
                     type="submit" 
                     disabled={isSubmitting} 
                 >
-                    {isSubmitting ? 'Entrando...' : 'Login'}
+                    {isSubmitting ? 'Verificando credenciais...' : 'Login'}
                 </button>
             </form>
         </div>
