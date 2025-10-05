@@ -15,6 +15,7 @@ const cadastroAcessar = z.object({
     nomeUsuario: z
     .string()
     .min(4, 'O nome de usuário é obrigatório e precisa ter no mínimo 4 caracteres.')
+    .regex(/^[a-zA-Z0-9]+$/, 'O nome de usuário não pode conter espaços ou caracteres especiais.') 
     .refine(async (nomeUsuario) => {
         try {
             const check_url = `${API_URL}?nomeUsuario=${nomeUsuario}`;
