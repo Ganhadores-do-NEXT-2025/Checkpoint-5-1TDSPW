@@ -14,14 +14,15 @@ const cadastroAcessar = z.object({
 
     nomeUsuario: z
     .string()
-    .min(1, 'O nome de usuário é obrigatório.')
+    .min(4, 'O nome de usuário é obrigatório e precisa ter no mínimo 4 caracteres.')
+    .regex(/^[a-zA-Z0-9]+$/, 'O nome de usuário não pode conter espaços ou caracteres especiais.') 
     .refine(async (nomeUsuario) => {
         try {
             const check_url = `${API_URL}?nomeUsuario=${nomeUsuario}`;
             const response = await axios.get(check_url);
             return response.data.length === 0;
         } catch (error) {
-            return true; // Se a API falhar, não bloqueamos o cadastro
+            return true; 
         }
     }, 'Este nome de usuário já está em uso.'),
 
@@ -29,13 +30,14 @@ const cadastroAcessar = z.object({
     .string()
     .min(1, 'O e-mail é obrigatório.')
     .email('Formato de e-mail inválido.')
+    .toLowerCase()
     .refine(async (email) => {
         try {
             const check_url = `${API_URL}?email=${email}`;
             const response = await axios.get(check_url);
             return response.data.length === 0;
         } catch (error) {
-            return true; // Se a API falhar, não bloqueamos o cadastro
+            return true; 
         }
     }, 'Este e-mail já está em uso.'),
     
