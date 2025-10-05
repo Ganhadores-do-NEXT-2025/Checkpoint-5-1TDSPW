@@ -1,11 +1,6 @@
 @import "tailwindcss";
 
-/*
-  Definimos variáveis CSS para centralizar o tema da aplicação,
-  facilitando a manutenção e garantindo consistência visual.
-*/
 :root {
-  /* Cores */
   --cor-primaria: #2563eb; /* blue-600 */
   --cor-primaria-hover: #1d4ed8; /* blue-700 */
   --cor-sucesso: #16a34a; /* green-600 */
@@ -16,14 +11,10 @@
   --cor-texto-secundario: #6b7280; /* gray-500 */
   --cor-borda: #e5e7eb; /* gray-200 */
 
-  /* Sombras */
   --sombra-card: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
   --sombra-botao: 0 4px 6px -1px rgba(37, 99, 235, 0.2), 0 2px 4px -2px rgba(37, 99, 235, 0.2);
 }
 
-/*
-  Estilos base para elementos HTML comuns.
-*/
 @layer base {
   body {
     @apply bg-[var(--cor-fundo)] font-sans text-[var(--cor-texto-principal)] antialiased;
@@ -34,9 +25,6 @@
   }
 }
 
-/*
-  Classes de componentes reutilizáveis para formulários, botões, etc.
-*/
 @layer components {
   .form-container {
     @apply w-full max-w-md space-y-6 rounded-2xl bg-[var(--cor-fundo-card)] p-8 shadow-[var(--sombra-card)] border border-[var(--cor-borda)];

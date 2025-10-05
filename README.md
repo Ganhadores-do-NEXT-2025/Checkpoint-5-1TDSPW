@@ -309,10 +309,6 @@ Este componente, em conjunto com o `RotaProt` (Componente de Rota Protegida), fo
 
 ---
 
-Ótimo\! Para detalhar a organização das rotas, vamos focar especificamente em como o componente **`ProtectedRoute` (`RotaProt`)** é empregado para proteger as páginas internas da sua aplicação.
-
------
-
 # 🚀 Ponto de Entrada e Configuração de Rotas (main.tsx)
 
 Este arquivo é o ponto de inicialização do seu aplicativo React. Ele configura o roteamento principal usando o `react-router-dom`, organizando as páginas em layouts e, mais crucialmente, aplicando **proteção de acesso** a rotas específicas.

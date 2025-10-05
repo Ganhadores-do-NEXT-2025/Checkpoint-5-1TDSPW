@@ -22,7 +22,7 @@ const cadastroAcessar = z.object({
             const response = await axios.get(check_url);
             return response.data.length === 0;
         } catch (error) {
-            return true; // Se a API falhar, não bloqueamos o cadastro
+            return true; 
         }
     }, 'Este nome de usuário já está em uso.'),
 
@@ -37,7 +37,7 @@ const cadastroAcessar = z.object({
             const response = await axios.get(check_url);
             return response.data.length === 0;
         } catch (error) {
-            return true; // Se a API falhar, não bloqueamos o cadastro
+            return true; 
         }
     }, 'Este e-mail já está em uso.'),
     

@@ -17,7 +17,6 @@ export default function Home() {
         if (userData) {
             setUser(JSON.parse(userData));
         } else {
-            // Se não houver usuário, redireciona para o login
             navigate('/');
         }
     }, [navigate]);
@@ -28,7 +27,6 @@ export default function Home() {
     };
 
     if (!user) {
-        // Renderiza um loader ou nada enquanto verifica o usuário
         return (
             <main>
                 <div className="form-container text-center">
