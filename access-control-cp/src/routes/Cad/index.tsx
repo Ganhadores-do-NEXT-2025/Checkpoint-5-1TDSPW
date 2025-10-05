@@ -14,7 +14,16 @@ const cadastroAcessar = z.object({
 
     nomeUsuario: z
     .string()
-    .min(1, 'O nome de usuário é obrigatório.'),
+    .min(1, 'O nome de usuário é obrigatório.')
+    .refine(async (nomeUsuario) => {
+        try {
+            const check_url = `${API_URL}?nomeUsuario=${nomeUsuario}`;
+            const response = await axios.get(check_url);
+            return response.data.length === 0;
+        } catch (error) {
+            return true; // Se a API falhar, não bloqueamos o cadastro
+        }
+    }, 'Este nome de usuário já está em uso.'),
 
     email: z
     .string()
