@@ -29,6 +29,7 @@ const cadastroAcessar = z.object({
     .string()
     .min(1, 'O e-mail é obrigatório.')
     .email('Formato de e-mail inválido.')
+    .toLowerCase()
     .refine(async (email) => {
         try {
             const check_url = `${API_URL}?email=${email}`;
