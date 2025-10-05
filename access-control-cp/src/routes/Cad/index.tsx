@@ -19,7 +19,16 @@ const cadastroAcessar = z.object({
     email: z
     .string()
     .min(1, 'O e-mail é obrigatório.')
-    .email('Formato de e-mail inválido.'),
+    .email('Formato de e-mail inválido.')
+    .refine(async (email) => {
+        try {
+            const check_url = `${API_URL}?email=${email}`;
+            const response = await axios.get(check_url);
+            return response.data.length === 0;
+        } catch (error) {
+            return true; // Se a API falhar, não bloqueamos o cadastro
+        }
+    }, 'Este e-mail já está em uso.'),
     
 });
 
@@ -43,14 +52,6 @@ export default function Cadastro() {
         setSuccessMessage('');
 
         try {
-            const check_url = `${API_URL}?email=${data.email}`;
-            const existingUser = await axios.get(check_url);
-
-            if (existingUser.data.length > 0) {
-                setErrorMessage('Este e-mail já está em uso. Tente fazer login ou use outro e-mail.');
-                return; 
-            }
-
             const response = await axios.post(API_URL, data);
 
             if (response.status === 201) {
