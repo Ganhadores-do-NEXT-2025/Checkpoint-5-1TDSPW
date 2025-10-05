@@ -14,7 +14,7 @@ const cadastroAcessar = z.object({
 
     nomeUsuario: z
     .string()
-    .min(1, 'O nome de usuário é obrigatório.')
+    .min(4, 'O nome de usuário é obrigatório e precisa ter no mínimo 4 caracteres.')
     .refine(async (nomeUsuario) => {
         try {
             const check_url = `${API_URL}?nomeUsuario=${nomeUsuario}`;
