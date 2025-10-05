@@ -1,9 +1,10 @@
 {
-    "usuarios": [
-        {
-            "id": 1,
-            "nomeUsuario": "admin123",
-            "email": "administrador@access.com"
-        }
-    ]
+  "usuarios": [
+    {
+      "id": 1,
+      "nome": "Administrador",
+      "nomeUsuario": "admin123",
+      "email": "administrador@access.com"
+    }
+  ]
 }

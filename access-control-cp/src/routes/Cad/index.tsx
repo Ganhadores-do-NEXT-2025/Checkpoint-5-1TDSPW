@@ -8,6 +8,10 @@ import axios from 'axios';
 const API_URL = 'http://localhost:3001/usuarios';
 
 const cadastroAcessar = z.object({
+    nome: z
+    .string()
+    .min(3, 'O nome é obrigatório e precisa ter no mínimo 3 caracteres.'),
+
     nomeUsuario: z
     .string()
     .min(1, 'O nome de usuário é obrigatório.'),
@@ -81,6 +85,22 @@ export default function Cadastro() {
                     {errorMessage && (
                         <div>{errorMessage}</div>
                     )}
+
+                    <div>
+                        <label htmlFor="nome">
+                            Nome Completo
+                        </label>
+                        <input
+                            id="nome"
+                            type="text"
+                            {...register('nome')} 
+                            placeholder="Seu nome completo"
+                            />
+                        {errors.nome && (
+                            <p style={{ color: 'red' }}> {errors.nome.message}</p>
+                        )}
+                    </div>
+
 
                     <div>
                         <label htmlFor="nomeUsuario">
