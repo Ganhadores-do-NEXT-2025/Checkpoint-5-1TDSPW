@@ -44,8 +44,9 @@ export default function Login() {
             const response = await axios.get(login_url);
 
             if (response.data.length > 0) {
+                const user = response.data[0];
                 
-                localStorage.setItem('userToken', 'simulated_user_token_123'); 
+                localStorage.setItem('user', JSON.stringify(user)); 
                 
                 setSuccessMessage('Login realizado com sucesso! Redirecionando para a Home...');
 
@@ -89,7 +90,7 @@ export default function Login() {
                             placeholder="Seu nome de usuário"
                             />
                         {errors.nomeUsuario && (
-                            <p style={{ color: 'red' }}> {errors.nomeUsuario.message}</p>
+                            <p className="text-red-600"> {errors.nomeUsuario.message}</p>
                         )}
                     </div>
 
@@ -103,7 +104,7 @@ export default function Login() {
                             {...register('email')} 
                             placeholder="seu@email.com"
                             />
-                        {errors.email && (<p style={{ color: 'red' }}> {errors.email.message}</p>
+                        {errors.email && (<p className="text-red-600"> {errors.email.message}</p>
                         )}
                     </div>
 
