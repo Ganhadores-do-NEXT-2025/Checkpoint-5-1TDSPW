@@ -29,22 +29,27 @@ export default function Home() {
 
     if (!user) {
         // Renderiza um loader ou nada enquanto verifica o usuário
-        return <div>Carregando...</div>;
+        return (
+            <main>
+                <div className="form-container text-center">
+                    <p className="text-lg">Carregando...</p>
+                </div>
+            </main>
+        );
     }
 
     return (
         <main>
-            <div>
-                {/* Mensagem de boas-vindas (Toast simulado) */}
-                <div>
+            <div className="form-container text-center">
+                <div className="feedback-message feedback-info">
                     Olá, {user.nome}! Seja bem-vindo(a).
                 </div>
 
-                <h1>Página Inicial</h1>
-                <p>Você está logado como:</p>
-                <p><strong>Nome:</strong> {user.nome}</p>
-                <p><strong>Email:</strong> {user.email}</p>
-                <button onClick={handleLogout}>Fazer logout</button>
+                <h1 className="form-title">Página Inicial</h1>
+                <p className="text-lg">Você está logado como:</p>
+                <p className="text-base"><strong className="font-semibold">Nome:</strong> {user.nome}</p>
+                <p className="text-base"><strong className="font-semibold">Email:</strong> {user.email}</p>
+                <button onClick={handleLogout} className="logout-button">Fazer logout</button>
             </div>
         </main>
     );
