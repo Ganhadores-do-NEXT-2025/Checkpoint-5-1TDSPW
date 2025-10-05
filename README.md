@@ -172,7 +172,6 @@ A função principal é `isAuthenticated`, que verifica o status do login:
     - Se o **token existir**, retorna `true` (usuário logado).
     - Se o **token for nulo ou vazio**, retorna `false` (usuário deslogado).
 
-```typescript
 const isAuthenticated = (): boolean => {
     const token = localStorage.getItem('userToken');
     return !!token; 
