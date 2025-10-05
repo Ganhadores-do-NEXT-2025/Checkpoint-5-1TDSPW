@@ -180,6 +180,74 @@ const isAuthenticated = (): boolean => {
 
 ---
 
+# 📝 Componente Cadastro (User Registration Form)
+
+Este módulo `Cadastro.tsx` é responsável por gerenciar toda a **lógica e interface do formulário de registro de novos usuários**. Ele implementa validações avançadas e comunicação assíncrona com a API para garantir a integridade dos dados.
+
+---
+
+## 🛠️ Como Funciona e Tecnologias Utilizadas
+
+O componente combina várias bibliotecas líderes do ecossistema React/TypeScript:
+
+| Tecnologia | Finalidade |
+| :--- | :--- |
+| **React Hook Form** (`useForm`) | Gerencia o estado do formulário, registrando inputs (`register`) e manipulando o envio (`handleSubmit`). |
+| **Zod** | Define o schema de validação dos dados de entrada de forma segura e tipada. |
+| **Zod Resolver** | Integra o Zod ao React Hook Form, permitindo que a validação de schema seja executada automaticamente. |
+| **Axios** | Cliente HTTP utilizado para fazer a requisição de cadastro (`POST`) para a API. |
+
+### 1. Validação de Schema (Zod)
+
+O objeto `cadastroAcessar` define as regras de validação para cada campo:
+
+* **`nome`**: Mínimo de **3 caracteres**.
+* **`nomeUsuario`**:
+    * Mínimo de **4 caracteres**.
+    * Usa uma **Expressão Regular (`.regex`)** para garantir que contenha **apenas letras e números** (`/^[a-zA-Z0-9]+$/`), proibindo espaços e caracteres especiais.
+    * Usa **Validação Assíncrona (`.refine`)** para consultar a API (`http://localhost:3001/usuarios?nomeUsuario=...`) e checar se o nome de usuário já está em uso (unicidade).
+* **`email`**:
+    * Deve ser um **formato de e-mail válido** (`.email()`).
+    * Usa **Validação Assíncrona (`.refine`)** para consultar a API (`http://localhost:3001/usuarios?email=...`) e checar se o e-mail já está registrado (duplicidade).
+
+### 2. Fluxo de Envio (`onSubmit`)
+
+A função `onSubmit` é executada apenas se **todas as validações do Zod passarem**.
+
+1.  Os dados são limpos de mensagens de feedback anteriores.
+2.  É feita uma requisição **`POST`** para `http://localhost:3001/usuarios` (API_URL) com os dados do formulário.
+3.  **Sucesso (Status 201):** Uma mensagem de sucesso é exibida e o usuário é **redirecionado para a página de Login (`/`)** após 1.5 segundos.
+4.  **Falha:** Se a requisição falhar (erro de conexão ou API), uma mensagem de erro (`errorMessage`) é exibida ao usuário.
+
+### 3. Gerenciamento de Estado (React Hook Form)
+
+O formulário aproveita os estados nativos fornecidos pelo `useForm`:
+
+* **`{...register('campo')}`**: Conecta o input ao RHF, permitindo que ele gerencie o estado e dispare as validações.
+* **`formState: { errors, isSubmitting }`**:
+    * `errors`: Objeto que contém todas as mensagens de erro de validação (exibidas condicionalmente ao lado de cada campo).
+    * `isSubmitting`: Estado booleano que fica `true` durante a execução da função `onSubmit` (a chamada `axios.post`), sendo usado para **desabilitar o botão** e mostrar o texto "Cadastrando...", evitando envios duplicados.
+
+---
+
+## 🚀 Implementação Detalhada
+
+O código é estruturado como um componente funcional que encapsula todo o fluxo de formulário, desde a interface (JSX) até a lógica de negócios (Zod + Axios).
+
+```typescript
+// Imports e Definição da API_URL
+import { useState } from 'react';
+// ... outros imports
+
+const API_URL = 'http://localhost:3001/usuarios';
+
+// O Schema Zod garante a tipagem e as regras de validação.
+const cadastroAcessar = z.object({ /* ... validações ... */ });
+
+// ... Componente Cadastro e funções.
+
+---
+
 ## 👥 Integrantes do Grupo
 
 - **Gustavo Tavares da Silva:** RM `562827`
