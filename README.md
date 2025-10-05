@@ -99,7 +99,49 @@ O projeto foi desenvolvido para atender aos seguintes requisitos:
 
 A aplicação estará disponível em `http://localhost:5173` e a API em `http://localhost:3001`.
 
----
+-----
+
+## Documentação do JSON-Server (Mock de API)
+
+O `json-server` é utilizado neste projeto para simular uma API REST de forma rápida e simples, permitindo o desenvolvimento do *frontend* sem depender de um *backend* completo. Ele atende às requisições de validação de duplicidade (`GET` por query param) e de cadastro (`POST`).
+
+### 1\. Estrutura do Arquivo `db.json`
+
+O arquivo **`db.json`** serve como o banco de dados do *mock* e armazena a coleção de usuários.
+
+```json
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "nome": "Alice Silva",
+      "nomeUsuario": "alicesilva",
+      "email": "alice@exemplo.com"
+    },
+    {
+      "id": 2,
+      "nome": "Bruno Costa",
+      "nomeUsuario": "brunocosta",
+      "email": "bruno@exemplo.com"
+    }
+    // ... mais usuários
+  ]
+}
+```
+
+### 2\. Endpoints e Uso
+
+O servidor é configurado para rodar na porta **3001**. O endpoint principal é o `usuarios`.
+
+| Requisição | URL do Endpoint | Propósito no Projeto |
+| :--- | :--- | :--- |
+| **`GET`** | `http://localhost:3001/usuarios` | **Consulta Geral**: Retorna todos os usuários. |
+| **`GET`** | `http://localhost:3001/usuarios?nomeUsuario=...` | **Validação de Unicidade**: Checa se um `nomeUsuario` já existe (usado no Zod). |
+| **`GET`** | `http://localhost:3001/usuarios?email=...` | **Validação de Duplicidade**: Checa se um `email` já está em uso (usado no Zod). |
+| **`POST`** | `http://localhost:3001/usuarios` | **Cadastro**: Recebe e salva o objeto do novo usuário. |
+
+
+```
 
 ## 👥 Integrantes do Grupo
 
