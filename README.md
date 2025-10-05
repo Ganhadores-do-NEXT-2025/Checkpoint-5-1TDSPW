@@ -99,7 +99,7 @@ O projeto foi desenvolvido para atender aos seguintes requisitos:
 
 A aplicação estará disponível em `http://localhost:5173` e a API em `http://localhost:3001`.
 
------
+---
 
 ## Documentação do JSON-Server (Mock de API)
 
@@ -152,6 +152,33 @@ O comando para iniciar o servidor foi adicionado à seção `scripts` do `packag
   }
 }
 ```
+
+---
+
+# 🔒 Rota Protegida (PrivateRoute Component)
+
+Este módulo define o componente `RotaProt`, que é responsável por proteger rotas específicas da aplicação, garantindo que apenas usuários **autenticados** possam acessá-las.
+
+## ⚙️ Como Funciona
+
+O componente `RotaProt` utiliza a lógica de autenticação baseada na presença de um token de acesso armazenado no `localStorage` do navegador.
+
+### 1. Checagem de Autenticação (`isAuthenticated`)
+
+A função principal é `isAuthenticated`, que verifica o status do login:
+
+- Ela tenta recuperar o item `'userToken'` do `localStorage`.
+- O valor é transformado em booleano (`!!token`):
+    - Se o **token existir**, retorna `true` (usuário logado).
+    - Se o **token for nulo ou vazio**, retorna `false` (usuário deslogado).
+
+```typescript
+const isAuthenticated = (): boolean => {
+    const token = localStorage.getItem('userToken');
+    return !!token; 
+};
+
+---
 
 ## 👥 Integrantes do Grupo
 
