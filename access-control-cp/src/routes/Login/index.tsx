@@ -1,7 +1,10 @@
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios'; 
+
+const API_URL = `http://localhost:3001/usuarios`;
 
 const loginSchema = z.object({
     nomeUsuario: z
@@ -28,15 +31,20 @@ export default function Login() {
     const onSubmit = async (data) => {
         console.log('Dados submetidos (já validados):', data);
 
-        try {
-            const API_URL = `http://localhost:3001/usuarios`;
+        const LOGIN_URL_FILTERED = `${API_URL}?nomeUsuario=${encodeURIComponent(data.nomeUsuario)}&email=${encodeURIComponent(data.email)}`;
 
+        try {
             await new Promise(resolve => setTimeout(resolve, 1500)); 
 
-            const response = await axios.get(API_URL);
+            const response = await axios.get(LOGIN_URL_FILTERED);
 
-            if (response.data.length > 0) { 
-                alert('Login realizado com sucesso! Redirecionando...');
+            if (response.data.length === 1) { 
+                console.log('Login realizado com sucesso! Redirecionando...');
+
+                setError("root.serverError", {
+                    type: "manual",
+                    message: "Login realizado com sucesso! Redirecionando...", 
+                });
 
             } else {
 
@@ -61,7 +69,7 @@ export default function Login() {
                 <h1>Login</h1>
 
                 {errors.root?.serverError && (
-                    <p style={{ color: 'white', backgroundColor: 'red', padding: '10px', borderRadius: '4px', marginBottom: '15px' }}>
+                    <p>
                         {errors.root.serverError.message}
                     </p>
                 )}
@@ -100,6 +108,11 @@ export default function Login() {
                 >
                     {isSubmitting ? 'Verificando credenciais...' : 'Login'}
                 </button>
+
+                <p>
+                    Não tem uma conta?{' '}
+                    <Link to="/cadastro">Cadastre-se aqui</Link>
+                </p>
             </form>
         </div>
     )
