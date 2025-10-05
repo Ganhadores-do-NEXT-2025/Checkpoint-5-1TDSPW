@@ -180,7 +180,7 @@ const isAuthenticated = (): boolean => {
 
 ---
 
-# 📝 Componente Cadastro (User Registration Form)
+# 📝 Rota Cadastro (User Registration Form)
 
 Este módulo `Cadastro.tsx` é responsável por gerenciar toda a **lógica e interface do formulário de registro de novos usuários**. Ele implementa validações avançadas e comunicação assíncrona com a API para garantir a integridade dos dados.
 
@@ -245,6 +245,67 @@ const API_URL = 'http://localhost:3001/usuarios';
 const cadastroAcessar = z.object({ /* ... validações ... */ });
 
 // ... Componente Cadastro e funções.
+
+---
+
+# 🔑 Rota Login (User Authentication Form)
+
+O módulo `Login.tsx` implementa o formulário de acesso, responsável por **autenticar o usuário** usando suas credenciais (Nome de Usuário e E-mail) contra a base de dados simulada e, em caso de sucesso, iniciar a sessão.
+
+---
+
+## 🛠️ Como Funciona e Tecnologias Utilizadas
+
+Este componente segue o mesmo padrão robusto do formulário de Cadastro, utilizando bibliotecas modernas para formulários e validação:
+
+| Tecnologia | Finalidade |
+| :--- | :--- |
+| **React Hook Form** (`useForm`) | Gerencia o estado e o ciclo de vida do formulário (registro de inputs, estado de envio). |
+| **Zod** | Define o schema de validação para garantir que os campos obrigatórios e o formato do e-mail sejam respeitados. |
+| **Zod Resolver** | Integração para que as regras de validação do Zod sejam aplicadas de forma automática pelo RHF. |
+| **Axios** | Cliente HTTP para realizar a requisição de autenticação na API. |
+
+### 1. Validação de Schema (Zod)
+
+O schema `loginAcessar` define as regras mínimas necessárias antes de tentar a autenticação:
+
+* **`nomeUsuario`**: Obrigatório (mínimo de 1 caractere).
+* **`email`**: Obrigatório (mínimo de 1 caractere) e deve ter um formato de e-mail válido.
+
+### 2. Fluxo de Autenticação (`onSubmit`)
+
+A função `onSubmit` é a chave do processo de login. Ela lida com a comunicação com a API e o gerenciamento da sessão.
+
+#### A. Requisição de Credenciais
+
+1.  A função constrói uma URL de consulta (`GET`) que utiliza o **Nome de Usuário** e o **E-mail** fornecidos para buscar um registro exato na base de dados:
+    ```typescript
+    const login_url = `${API_URL}?nomeUsuario=${data.nomeUsuario}&email=${data.email}`;
+    // Ex: http://localhost:3001/usuarios?nomeUsuario=testeuser&email=teste@email.com
+    ```
+    *Este método (GET com query params) é usado para simular a verificação de credenciais no JSON-Server.*
+
+#### B. Processamento da Resposta
+
+1.  **Sucesso (Credenciais Válidas):**
+    * Se a API retorna **um ou mais resultados** (`response.data.length > 0`), o primeiro usuário encontrado é considerado autenticado.
+    * O objeto do usuário (`user`) é salvo no **`localStorage`** (usando a chave `'user'`) para estabelecer a sessão.
+    * O usuário é **redirecionado para a rota `/home`** após 1.5 segundos.
+2.  **Falha (Credenciais Inválidas):**
+    * Se a API retornar um array vazio (`response.data.length === 0`), indica que a combinação de Nome de Usuário e E-mail não foi encontrada. Uma mensagem de erro (`errorMessage`) é exibida.
+3.  **Erro de Conexão:**
+    * Qualquer falha na comunicação com a API (bloco `catch`) exibe uma mensagem de erro de conexão.
+
+### 3. Experiência do Usuário (UX)
+
+O componente aprimora a experiência de login ao:
+
+* **Desabilitar o botão de envio** e alterar seu texto para "**Verificando Credenciais...**" enquanto a requisição `axios.get` está em andamento (`isSubmitting`).
+* Exibir feedback visual claro (mensagens de sucesso ou erro) em caixas dedicadas.
+
+---
+
+Este componente, em conjunto com o `RotaProt` (Componente de Rota Protegida), forma um sistema funcional de autenticação e autorização de front-end.
 
 ---
 
