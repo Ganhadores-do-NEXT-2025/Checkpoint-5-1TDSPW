@@ -8,9 +8,5 @@ const isAuthenticated = (): boolean => {
 export default function RotaProt () {
     const isAuth = isAuthenticated();
         
-    if (isAuth) {
-        return <Navigate to="/home" replace />; 
-    }
-        
-    return <Outlet />;
+    return isAuth ? <Outlet /> : <Navigate to="/" replace />;
 };
