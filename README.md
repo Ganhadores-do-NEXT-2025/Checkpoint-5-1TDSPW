@@ -140,7 +140,17 @@ O servidor é configurado para rodar na porta **3001**. O endpoint principal é 
 | **`GET`** | `http://localhost:3001/usuarios?email=...` | **Validação de Duplicidade**: Checa se um `email` já está em uso (usado no Zod). |
 | **`POST`** | `http://localhost:3001/usuarios` | **Cadastro**: Recebe e salva o objeto do novo usuário. |
 
+### 3\. Comandos de Execução no `package.json`
 
+O comando para iniciar o servidor foi adicionado à seção `scripts` do `package.json`, garantindo que ele carregue o arquivo `db.json` e utilize a porta correta (`3001`).
+
+```json
+{
+  "scripts": {
+    // ... outros comandos
+    "api": "json-server --watch db.json --port 3001" 
+  }
+}
 ```
 
 ## 👥 Integrantes do Grupo
