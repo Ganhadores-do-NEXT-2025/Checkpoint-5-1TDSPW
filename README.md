@@ -104,6 +104,6 @@ A aplicação estará disponível em `http://localhost:5173` e a API em `http://
 ## 👥 Integrantes do Grupo
 
 - **Gustavo Tavares da Silva:** RM `562827`
-- **Nome do Aluno 2:** RM `XXXXX`
-- **Nome do Aluno 3:** RM `XXXXX`
+- **João Victor Gomes de Souza 2:** RM `560907`
+- **Lucas Barranha Giannini 3:** RM `564508`
 - **Nome do Aluno 4:** RM `XXXXX`
