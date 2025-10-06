@@ -377,4 +377,4 @@ Essa estrutura garante que a lógica de autenticação seja aplicada de forma de
 - **Gustavo Tavares da Silva:** RM `562827`
 - **João Victor Gomes de Souza 2:** RM `560907`
 - **Lucas Barranha Giannini 3:** RM `564508`
-- **Nome do Aluno 4:** RM `XXXXX`
+- **Miguel Henrique Oliveira Dias:** RM `565492`
