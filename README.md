@@ -234,16 +234,16 @@ O formulário aproveita os estados nativos fornecidos pelo `useForm`:
 O código é estruturado como um componente funcional que encapsula todo o fluxo de formulário, desde a interface (JSX) até a lógica de negócios (Zod + Axios).
 
 ```typescript
-// Imports e Definição da API_URL
+
 import { useState } from 'react';
-// ... outros imports
+
 
 const API_URL = 'http://localhost:3001/usuarios';
 
-// O Schema Zod garante a tipagem e as regras de validação.
-const cadastroAcessar = z.object({ /* ... validações ... */ });
+.
+const cadastroAcessar = z.object({});
 
-// ... Componente Cadastro e funções.
+
 
 ---
 
