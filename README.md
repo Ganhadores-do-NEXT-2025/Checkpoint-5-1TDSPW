@@ -124,7 +124,6 @@ O arquivo **`db.json`** serve como o banco de dados do *mock* e armazena a cole�
       "nomeUsuario": "brunocosta",
       "email": "bruno@exemplo.com"
     }
-    // ... mais usuários
   ]
 }
 ```
@@ -147,7 +146,6 @@ O comando para iniciar o servidor foi adicionado à seção `scripts` do `packag
 ```json
 {
   "scripts": {
-    // ... outros comandos
     "api": "json-server --watch db.json --port 3001" 
   }
 }
