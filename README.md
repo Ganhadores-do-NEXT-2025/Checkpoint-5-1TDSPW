@@ -124,7 +124,6 @@ O arquivo **`db.json`** serve como o banco de dados do *mock* e armazena a cole�
       "nomeUsuario": "brunocosta",
       "email": "bruno@exemplo.com"
     }
-    // ... mais usuários
   ]
 }
 ```
@@ -147,7 +146,6 @@ O comando para iniciar o servidor foi adicionado à seção `scripts` do `packag
 ```json
 {
   "scripts": {
-    // ... outros comandos
     "api": "json-server --watch db.json --port 3001" 
   }
 }
@@ -172,7 +170,6 @@ A função principal é `isAuthenticated`, que verifica o status do login:
     - Se o **token existir**, retorna `true` (usuário logado).
     - Se o **token for nulo ou vazio**, retorna `false` (usuário deslogado).
 
-```typescript
 const isAuthenticated = (): boolean => {
     const token = localStorage.getItem('userToken');
     return !!token; 
@@ -235,16 +232,16 @@ O formulário aproveita os estados nativos fornecidos pelo `useForm`:
 O código é estruturado como um componente funcional que encapsula todo o fluxo de formulário, desde a interface (JSX) até a lógica de negócios (Zod + Axios).
 
 ```typescript
-// Imports e Definição da API_URL
+
 import { useState } from 'react';
-// ... outros imports
+
 
 const API_URL = 'http://localhost:3001/usuarios';
 
-// O Schema Zod garante a tipagem e as regras de validação.
-const cadastroAcessar = z.object({ /* ... validações ... */ });
+.
+const cadastroAcessar = z.object({});
 
-// ... Componente Cadastro e funções.
+
 
 ---
 
@@ -350,10 +347,9 @@ O bloco de proteção é um objeto de rota sem um `path` definido, mas com um `e
 
 ```typescript
 {
-    element: <ProtectedRoute/>, // <--- Aqui está o RotaProt
+    element: <ProtectedRoute/>, 
     children: [
         {path: "/home", element: <Home />},
-        // [Adicione aqui qualquer outra rota que precise de login]
     ]
 }
 ```
@@ -378,4 +374,4 @@ Essa estrutura garante que a lógica de autenticação seja aplicada de forma de
 - **Gustavo Tavares da Silva:** RM `562827`
 - **João Victor Gomes de Souza 2:** RM `560907`
 - **Lucas Barranha Giannini 3:** RM `564508`
-- **Nome do Aluno 4:** RM `XXXXX`
+- **Miguel Henrique Oliveira Dias:** RM `565492`
