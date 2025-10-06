@@ -347,10 +347,9 @@ O bloco de proteção é um objeto de rota sem um `path` definido, mas com um `e
 
 ```typescript
 {
-    element: <ProtectedRoute/>, // <--- Aqui está o RotaProt
+    element: <ProtectedRoute/>, 
     children: [
         {path: "/home", element: <Home />},
-        // [Adicione aqui qualquer outra rota que precise de login]
     ]
 }
 ```
